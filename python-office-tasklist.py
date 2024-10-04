@@ -52,11 +52,24 @@ def show_tasks():
         for item in tasklist:
             print(item)
 
+def task_delete():
+    task_to_delete = input("Welche Aufgabe willst du löschen: ")
+    updated_tasklist = [task for task in tasklist if task[0] != task_to_delete] #Entfernt die Aufgabe mit dem eingegebenen Namen
+    if len(tasklist) == len(updated_tasklist):
+        print(f"Aufgabe {task_to_delete} nicht gefunden!")
+    else:
+        print(f"Aufgabe {task_to_delete} wurde erfolgreich gelöscht!")
+
+    with open("tasklist.csv", "w", newline="") as datei:
+        csv_writer = csv.writer(datei)
+        csv_writer.writerows(updated_tasklist) #Schreibt die aktualisierte Liste in die Datei
+    
+
 def menu():
     while True:
         load_tasks_from_csv()
         check_due_dates()
-        choice = input("Aufgaben hinzufügen (1), Aufgaben anzeigen (2), Aufgaben sortieren (3), Beenden (4): ")
+        choice = input("Aufgaben hinzufügen (1), Aufgaben anzeigen (2), Aufgaben sortieren (3), Aufgaben löschen (4), Beenden (5): ")
 
         if choice == '1':
             task_input()
@@ -65,10 +78,12 @@ def menu():
         elif choice == '3':
             sorted_prio()
         elif choice == '4':
+            task_delete()
+        elif choice == '5':
             quit()
         else:
             "Falsche Eingabe!"
             continue
     
 if __name__ == '__main__':
-    menu()
+    menu() 
