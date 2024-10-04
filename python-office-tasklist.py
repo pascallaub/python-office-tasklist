@@ -12,6 +12,12 @@ priority_order = {
 def check_due_dates():
     today = datetime.today().date() #Aktuelles Datum
     one_day_before = today + timedelta(days=1) #Ein Tag später
+    two_day_before = today + timedelta(days=2) #Zwei Tage später
+
+    for task, date, prio in tasklist:
+            two_due_date = datetime.strptime(date.strip(), "%d.%m.%Y").date()
+            if two_due_date == two_day_before:
+                print(f"\x1B[31m{task}\x1B[0m ist in bald fällig!")
 
     for task, date, prio in tasklist:
         try:
