@@ -5,8 +5,6 @@ def task_input():
     date = input("Fälligkeitsdatum: ")
 
     tasklist.append((task, date))
-
-    show_tasks()
     
 
 def show_tasks():
@@ -16,4 +14,19 @@ def show_tasks():
         for item in tasklist:
             print(item)
 
-task_input()
+def menu():
+    while True:
+        choice = input("Aufgaben hinzufügen (1), Aufgaben anzeigen (2), Beenden (3): ")
+
+        if choice == '1':
+            task_input()
+        elif choice == '2':
+            show_tasks()
+        elif choice == '3':
+            quit()
+        else:
+            "Falsche Eingabe!"
+            continue
+    
+
+menu()
